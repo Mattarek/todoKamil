@@ -2,10 +2,15 @@ import React from "react";
 import Button from "../Button/";
 import "../../App.css";
 
-const toggleTasks = () => {};
-const deleteTasks = () => {};
-
-export const Item = ({ id, name, surname }) => {
+export const Item = ({
+  id,
+  name,
+  surname,
+  age,
+  isActive,
+  toggleTasks,
+  deleteTasks,
+}) => {
   return (
     <div>
       <span>{`${name} ${surname}`}</span>

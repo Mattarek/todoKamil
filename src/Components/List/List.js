@@ -40,16 +40,36 @@ const data = {
 
 const myData = Object.values(data);
 const myDataToShow = myData.map((item, id) => {
-  return { id, ...item };
+  return { id, ...item, isActive: false };
 });
 
 const myState = { ...myDataToShow };
 const state = Object.values(myState);
 
 export const List = () => {
-  return state.map(({ id, name, surname, age }) => (
+  const toggleTasks = () => {};
+
+  const deleteTasks = (taskId) => {
+    console.log(taskId.id);
+    const filteredDate = state.filter(
+      (id) => state.map(({ id }) => id) !== taskId.id
+    );
+    return filteredDate;
+  };
+
+  return state.map(({ id, name, surname, age, isActive }) => (
     <li key={id}>
-      {age >= 18 ? <Item name={name} surname={surname} age={age} /> : null}
+      {age >= 18 ? (
+        <Item
+          id={id}
+          name={name}
+          surname={surname}
+          age={age}
+          isActive={isActive}
+          toggleTasks={toggleTasks}
+          deleteTasks={deleteTasks}
+        />
+      ) : null}
     </li>
   ));
 };
