@@ -1,6 +1,6 @@
 import "./App.css";
 import List from "./Components/List/index";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const data = {
   1: {
@@ -37,7 +37,7 @@ const data = {
 
 const myData = Object.values(data);
 const myDataToShow = myData.map((item, id) => {
-  return { id, ...item, isActive: false };
+  return { id, isActive: false, ...item };
 });
 
 const arrayFiltered = myDataToShow.filter((name, id) => name.age >= 18);
@@ -45,18 +45,21 @@ const arrayFiltered = myDataToShow.filter((name, id) => name.age >= 18);
 const App = () => {
   const [state, setMyState] = useState(arrayFiltered);
 
-  const toggleTasks = (taskId) => {
-    const toggledArray = state.isActive
-      ? arrayFiltered.map((item) => item)
-      : null;
-    return setMyState(() => toggledArray);
-  };
-
   const deleteTasks = (taskId) => {
     const arrayFiltered = state.filter((item) => {
       return item.id !== taskId;
     });
 
+    return setMyState(() => arrayFiltered);
+  };
+
+  const toggleTasks = (taskId) => {
+    const arrayFiltered = state.map((item) =>
+      item.id === taskId
+        ? { ...item, isActive: !item.isActive }
+        : { ...item, isActive: (item.isActive = false) }
+    );
+    console.log(arrayFiltered);
     return setMyState(() => arrayFiltered);
   };
 

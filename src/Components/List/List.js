@@ -3,6 +3,7 @@ import Item from "../Item/";
 
 export const List = (props) => {
   const { state, deleteTasks, toggleTasks } = props;
+
   return state.map(({ id, name, surname, age, isActive }) => (
     <li key={id}>
       {
@@ -14,6 +15,7 @@ export const List = (props) => {
           isActive={isActive}
           toggleTasks={() => toggleTasks(id)}
           deleteTasks={() => deleteTasks(id)}
+          // style={isActive ? { color: "red", backgroundColor: "green" } : null}
         />
       }
     </li>

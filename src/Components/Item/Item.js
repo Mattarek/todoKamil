@@ -2,20 +2,14 @@ import React from "react";
 import Button from "../Button/";
 import "../../App.css";
 
-export const Item = ({
-  id,
-  name,
-  surname,
-  age,
-  isActive,
-  toggleTasks,
-  deleteTasks,
-}) => {
+export const Item = ({ name, surname, isActive, toggleTasks, deleteTasks }) => {
+  const text = `${name} ${surname}`;
+  console.log(isActive);
   return (
     <div>
-      <span>{`${name} ${surname}`}</span>
-      <Button children={"Toggle"} onClick={toggleTasks} />
-      <Button children={"Delete"} onClick={deleteTasks} />
+      <span style={isActive ? { fontWeight: "bold" } : null}>{`${text}`}</span>
+      <Button isActive={isActive} children={"Toggle"} onClick={toggleTasks} />
+      <Button isActive={isActive} children={"Delete"} onClick={deleteTasks} />
     </div>
   );
 };
