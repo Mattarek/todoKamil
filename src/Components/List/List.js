@@ -1,26 +1,23 @@
-import Item from "../Item/";
 import React from "react";
+import Item from "../Item/";
 
 export const List = (props) => {
-  const { state } = props;
-
-  return state.map(
-    ({ id, name, surname, age, isActive, toggleTask, deleteTask }) => (
-      <li key={id}>
-        {age >= 18 ? (
-          <Item
-            id={id}
-            name={name}
-            surname={surname}
-            age={age}
-            isActive={isActive}
-            toggleTasks={() => toggleTask(id)}
-            deleteTasks={() => deleteTask(id)}
-          />
-        ) : null}
-      </li>
-    )
-  );
+  const { state, deleteTasks, toggleTasks } = props;
+  return state.map(({ id, name, surname, age, isActive }) => (
+    <li key={id}>
+      {
+        <Item
+          id={id}
+          name={name}
+          surname={surname}
+          age={age}
+          isActive={isActive}
+          toggleTasks={() => toggleTasks(id)}
+          deleteTasks={() => deleteTasks(id)}
+        />
+      }
+    </li>
+  ));
 };
 
 export default List;
