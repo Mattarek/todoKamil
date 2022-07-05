@@ -4,7 +4,7 @@ import "../../App.css";
 
 export const Item = ({ name, surname, isActive, toggleTasks, deleteTasks }) => {
   const text = `${name} ${surname}`;
-  console.log(isActive);
+
   return (
     <div>
       <span style={isActive ? { fontWeight: "bold" } : null}>{`${text}`}</span>

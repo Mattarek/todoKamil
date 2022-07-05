@@ -1,6 +1,7 @@
 import "./App.css";
 import List from "./Components/List/index";
 import React, { useState } from "react";
+import Button from "./Components/Button/";
 
 const data = {
   1: {
@@ -59,12 +60,22 @@ const App = () => {
         ? { ...item, isActive: !item.isActive }
         : { ...item, isActive: (item.isActive = false) }
     );
-    console.log(arrayFiltered);
     return setMyState(() => arrayFiltered);
+  };
+
+  const addTaskToState = () => {
+    const newArrayWithJan = state.concat({
+      id: Math.random(),
+      name: "Jan",
+      surname: "Kowalski",
+    });
+
+    return setMyState(() => newArrayWithJan);
   };
 
   return (
     <div className="App">
+      <Button children={"Add"} onClick={addTaskToState} />
       <List state={state} toggleTasks={toggleTasks} deleteTasks={deleteTasks} />
     </div>
   );
