@@ -84,20 +84,18 @@ const App = () => {
 
   useEffect(() => {
     const myDataFromAPI = FetchState("https://pokeapi.co/api/v2/pokemon");
-    myDataFromAPI
-      .then((response) => response.results)
-      .then((data) => setMyData(data));
+    setMyData(myDataFromAPI);
     setIsFetching(false);
-  }, []);
+  }, [state]);
 
   return (
     <div className="App">
       <Button children={"Add"} onClick={addTaskToState} />
       <List state={state} toggleTasks={toggleTasks} deleteTasks={deleteTasks} />
       <div>====================================================</div>
-      {isFetching
-        ? null
-        : myData.map((name, index) => <li key={index}>{name}</li>)}
+      {!isFetching
+        ? myData?.map((name, index) => <li key={index}>{name}</li>)
+        : null}
     </div>
   );
 };
