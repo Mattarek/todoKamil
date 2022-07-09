@@ -4,9 +4,6 @@ import React, { useState, useEffect } from "react";
 import Button from "./Components/Button/";
 import FetchState from "./Components/FetchState";
 
-const dataFromAPI = FetchState("https://pokeapi.co/api/v2/pokemon");
-console.log(dataFromAPI.results);
-
 const data = {
   1: {
     name: "john",
@@ -49,8 +46,8 @@ const arrayFiltered = myDataToShow.filter((name) => name.age >= 18);
 
 const App = () => {
   const [state, setMyState] = useState(arrayFiltered);
-  const [isFetching, setIsFetching] = useState(true);
-  const [myData, setMyData] = useState();
+  const [isFetching, setIsFetching] = useState(false);
+  const [myDataFromFetch, setMyData] = useState([]);
 
   const deleteTasks = (taskId) => {
     const arrayFiltered = state.filter((item) => {
@@ -83,19 +80,35 @@ const App = () => {
   };
 
   useEffect(() => {
-    const myDataFromAPI = FetchState("https://pokeapi.co/api/v2/pokemon");
-    setMyData(myDataFromAPI);
-    setIsFetching(false);
-  }, [state]);
+    const fetchData = async () => {
+      setIsFetching(true);
+      try {
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon");
+        const data = await response.json();
+        setMyData(data.results);
+        setIsFetching(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
       <Button children={"Add"} onClick={addTaskToState} />
       <List state={state} toggleTasks={toggleTasks} deleteTasks={deleteTasks} />
       <div>====================================================</div>
-      {!isFetching
-        ? myData?.map((name, index) => <li key={index}>{name}</li>)
-        : null}
+      {!isFetching ? (
+        myDataFromFetch &&
+        myDataFromFetch.map((item) => (
+          <li key={item.url}>
+            {item.name} {item.url}
+          </li>
+        ))
+      ) : (
+        <p>data is loading . . .</p>
+      )}
     </div>
   );
 };
