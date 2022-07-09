@@ -83,9 +83,8 @@ const App = () => {
     const fetchData = async () => {
       setIsFetching(true);
       try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-        const data = await response.json();
-        setMyData(data.results);
+        const response = await FetchState("https://pokeapi.co/api/v2/pokemon");
+        setMyData(response);
         setIsFetching(false);
       } catch (error) {
         console.log(error);
